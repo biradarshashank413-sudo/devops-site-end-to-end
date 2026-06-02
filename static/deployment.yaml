@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: devops-site deployment
+  namespace: default   # if you create a namespace please use that namespace here
+  labels:
+    app: devops-site    # this lable is very important please use this label in service yaml file
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devops-site
+  template:
+    metadata:
+      labels:
+        app: devops-site
+    spec:
+      containers:
+      - name: devops-site-flask-app
+        image: carina030308/devops-site:202605290651
+        ports:
+        - containerPort: 5000
+
+## create the service yaml file
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-site-service
+  namespace: default   # if you create a namespace please use that namespace here
+  labels:
+    app: devops-site    # this lable is very important please use this label in service yaml file 
+    release: prometheus
+spec:
+  selector:
+    app: devops-site
+  ports:
+  - name: http
+    protocol: TCP
+    port: 80
+    targetPort: 5000
+  type: ClusterIP

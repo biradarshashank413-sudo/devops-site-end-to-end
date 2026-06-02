@@ -34,7 +34,7 @@ pipeline {
     stage('Login & Push') {
       steps {
         withCredentials([usernamePassword(
-          credentialsId: 'DOCKER_CRAD',
+          credentialsId: 'DOCKER_CARD',
           usernameVariable: 'DOCKER_USER',
           passwordVariable: 'DOCKER_PASS'
         )]) {
@@ -58,7 +58,7 @@ pipeline {
         withCredentials([
           file(credentialsId: '113962110009254531075', variable: 'GCP_KEY'),
           usernamePassword(
-            credentialsId: 'DOCKER_CRAD',
+            credentialsId: 'DOCKER_CARD',
             usernameVariable: 'DOCKER_USER',
             passwordVariable: 'DOCKER_PASS'
           )
